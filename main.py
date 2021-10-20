@@ -141,9 +141,6 @@ def manipulation(args, config):
         drop_last=False,
     )
 
-    x, _ = next(iter(val_loader))
-    x = x.cuda()
-
     model = D2C(args, config)
     state_dict = torch.load(args.d2c_path)
     model.load_state_dict(state_dict)
@@ -155,6 +152,7 @@ def manipulation(args, config):
     count = 0
     with torch.no_grad():
         for x, _ in tqdm.tqdm(val_loader):
+            x = x.cuda()
             z = model.image_to_latent(x)
             z_ = model.manipulate_latent(z, r_model, args.step)
             z_ = model.postprocess_latent(

@@ -63,7 +63,7 @@ The code has been tested on PyTorch 1.9.1 (CUDA 10.2).
 To use the checkpoints, download the checkpoints from [this link](https://drive.google.com/drive/folders/1rbztSCF27azt64M2d3dsL38ZDZ489Rsn?usp=sharing), under the `checkpoints/` directory.
 ```[bash]
 # Requires gdown >= 4.2.0, install with pip
-gdown https://drive.google.com/drive/u/1/folders/1DvApt-uO3uMRhFM3eIqPJH-HkiEZC1Ru -O checkpoints/ --folder
+gdown https://drive.google.com/drive/u/1/folders/1DvApt-uO3uMRhFM3eIqPJH-HkiEZC1Ru -O ./ --folder
 ```
 
 ## Examples 
@@ -72,13 +72,26 @@ The `main.py` file provides some basic scripts to perform inference on the check
 We will release training code soon on a separate repo, as the GPU memory becomes a bottleneck if we train the model jointly.
 
 Example to perform image manipulation:
+
+- Red lipstick
 ```
-python main.py celeba_256 manipulation --d2c_path checkpoints/ffhq_32/model.ckpt --boundary_path checkpoints/ffhq_32/red_lipstick.ckpt --step -10 --image_dir images/red_lipstick
+python main.py ffhq_256 manipulation --d2c_path checkpoints/ffhq_32/model.ckpt --boundary_path checkpoints/ffhq_32/red_lipstick.ckpt --step 10 --image_dir images/red_lipstick --save_location results/red_lipstick
 ```
+
+- Beard
+```
+python main.py ffhq_256 manipulation --d2c_path checkpoints/ffhq_32/model.ckpt --boundary_path checkpoints/ffhq_32/beard.ckpt --step 20 --image_dir images/beard --save_location results/beard
+```
+
+- Blond
+```
+python main.py ffhq_256 manipulation --d2c_path checkpoints/ffhq_32/model.ckpt --boundary_path checkpoints/ffhq_32/blond.ckpt --step 15 --image_dir images/blond --save_location results/blond
+```
+
 
 Example to perform unconditional image generation:
 ```
-python main.py celeba_256 sample_uncond --d2c_path checkpoints/ffhq_32/model.ckpt --skip 100 --save_location results/uncond_samples
+python main.py ffhq_256 sample_uncond --d2c_path checkpoints/ffhq_32/model.ckpt --skip 100 --save_location results/uncond_samples
 ```
 
 ## Extensions

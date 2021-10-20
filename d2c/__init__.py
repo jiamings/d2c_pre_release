@@ -1,3 +1,5 @@
+import numpy as np
+
 import torch
 import torch.nn as nn
 import torch.utils.data
@@ -9,7 +11,39 @@ from .autoencoder.moco import builder
 from .autoencoder.model_ae_moco import AutoEncoder
 from .diffusion.functions.denoising import compute_alpha, generalized_steps
 from .diffusion.models.diffusion import Model as Diffusion
-from .diffusion.runners.diffusion import get_beta_schedule
+
+
+def get_beta_schedule(beta_schedule, *, beta_start, beta_end, num_diffusion_timesteps):
+    def sigmoid(x):
+        return 1 / (np.exp(-x) + 1)
+
+    if beta_schedule == "quad":
+        betas = (
+            np.linspace(
+                beta_start ** 0.5,
+                beta_end ** 0.5,
+                num_diffusion_timesteps,
+                dtype=np.float64,
+            )
+            ** 2
+        )
+    elif beta_schedule == "linear":
+        betas = np.linspace(
+            beta_start, beta_end, num_diffusion_timesteps, dtype=np.float64
+        )
+    elif beta_schedule == "const":
+        betas = beta_end * np.ones(num_diffusion_timesteps, dtype=np.float64)
+    elif beta_schedule == "jsd":  # 1/T, 1/(T-1), 1/(T-2), ..., 1
+        betas = 1.0 / np.linspace(
+            num_diffusion_timesteps, 1, num_diffusion_timesteps, dtype=np.float64
+        )
+    elif beta_schedule == "sigmoid":
+        betas = np.linspace(-6, 6, num_diffusion_timesteps)
+        betas = sigmoid(betas) * (beta_end - beta_start) + beta_start
+    else:
+        raise NotImplementedError(beta_schedule)
+    assert betas.shape == (num_diffusion_timesteps,)
+    return betas
 
 
 class ModulationLayer(nn.Module):
@@ -32,7 +66,7 @@ class BoundaryInterpolationLayer(nn.Module):
         self.register_buffer("boundary", torch.randn(*shape))
 
     def forward(self, z, steps):
-        return z + steps * self.boundary
+        return z - steps * self.boundary
 
 
 class D2C(object):
