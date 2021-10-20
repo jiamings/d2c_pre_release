@@ -4,14 +4,17 @@
 
 PyTorch implementation of **D2C: Diffuison-Decoding Models for Few-shot Conditional Generation**.
 
-[Abhishek Sinha](https://a7b23.github.io/)*, [Jiaming Song](https://tsong.me/)*, [Chenlin Meng](https://cs.stanford.edu/~chenlin/), [Stefano Ermon](https://cs.stanford.edu/~ermon/)
+[Abhishek Sinha*](https://a7b23.github.io/), [Jiaming Song*](https://tsong.me/), [Chenlin Meng](https://cs.stanford.edu/~chenlin/), [Stefano Ermon](https://cs.stanford.edu/~ermon/)
 
+Stanford University
 
 ## Overview
 
 Conditional generative models of high-dimensional images have many applications, but supervision signals from conditions to images can be expensive to acquire. This paper describes Diffusion-Decoding models with Contrastive representations (D2C), a paradigm for training unconditional variational autoencoders (VAEs) for few-shot conditional image generation. By learning from as few as 100 labeled examples, D2C can be used to generate images with a certain label or manipulate an existing image to contain a certain label. Compared with state-of-the-art StyleGAN2 methods, D2C is able to manipulate certain attributes efficiently while keeping the other details intact.
 
 ![](static/cond-gen.png)
+
+Here are some example for image manipulation. You can see more results [here](https://d2c-model.github.io/).
 
 <table>
 <thead>
@@ -64,7 +67,9 @@ gdown https://drive.google.com/drive/u/1/folders/1DvApt-uO3uMRhFM3eIqPJH-HkiEZC1
 ```
 
 ## Examples 
-The `main.py` file provides some basic scripts to perform inference on the checkpoints. We will release training code soon.
+The `main.py` file provides some basic scripts to perform inference on the checkpoints. 
+
+We will release training code soon on a separate repo, as the GPU memory becomes a bottleneck if we train the model jointly.
 
 Example to perform image manipulation:
 ```
@@ -78,7 +83,7 @@ python main.py celeba_256 sample_uncond --d2c_path checkpoints/ffhq_32/model.ckp
 
 ## Extensions
 
-We implement a `D2C` class [here](https://github.com/jiamings/d2c_pre_release/blob/main/d2c/__init__.py) that contains an autoencoder and a diffusion latent model. 
+We implement a `D2C` class [here](https://github.com/jiamings/d2c_pre_release/blob/main/d2c/__init__.py) that contains an autoencoder and a diffusion latent model. See code structure here.
 
 ![](static/code-structure.png)
 

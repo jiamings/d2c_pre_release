@@ -1,11 +1,3 @@
-# ---------------------------------------------------------------
-# Copyright (c) 2020, NVIDIA CORPORATION. All rights reserved.
-#
-# This work is licensed under the NVIDIA Source Code License
-# for NVAE. To view a copy of this license, see the LICENSE file.
-# ---------------------------------------------------------------
-
-
 import time
 import numpy as np
 import torch
