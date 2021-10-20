@@ -14,18 +14,18 @@ PyTorch implementation of **D2C: Diffuison-Decoding Models for Few-shot Conditio
 <table>
 <thead>
 <tr>
-  <th onclick="sorting(tbody, 0)">Name</th>
-  <th onclick="sorting(tbody, 1)" width="16%">Original</th>
-  <th onclick="sorting(tbody, 2)" width="16%">D2C</th>
-  <th onclick="sorting(tbody, 3)" width="16%">StyleGAN2</th>
-  <th onclick="sorting(tbody, 4)" width="16%">NVAE</th>
-  <th onclick="sorting(tbody, 5)" width="16%">DDIM</th>
+  <th onclick="sorting(tbody, 0)">Attribute</th>
+  <th onclick="sorting(tbody, 1)" width="17%">Original</th>
+  <th onclick="sorting(tbody, 2)" width="17%">D2C</th>
+  <th onclick="sorting(tbody, 3)" width="17%">StyleGAN2</th>
+  <th onclick="sorting(tbody, 4)" width="17%">NVAE</th>
+  <th onclick="sorting(tbody, 5)" width="17%">DDIM</th>
 </tr>
 
 </thead>
 <tbody>
   <tr>
-  <td>+blond<br><br></td>
+  <td>Blond</td>
  <td><img src="static/blond/0.png" width="100%"></td>
  <td><img src="static/blond/1.png" width="100%"></td>
  <td><img src="static/blond/2.png" width="100%"></td>
@@ -33,12 +33,21 @@ PyTorch implementation of **D2C: Diffuison-Decoding Models for Few-shot Conditio
  <td><img src="static/blond/4.png" width="100%"></td>
 </tr>
   <tr>
-  <td>+red_lipstick<br><br></td>
+  <td>Red Lipstick</td>
  <td><img src="static/red_lipstick/15.png" width="100%"></td>
  <td><img src="static/red_lipstick/16.png" width="100%"></td>
  <td><img src="static/red_lipstick/17.png" width="100%"></td>
  <td><img src="static/red_lipstick/18.png" width="100%"></td>
  <td><img src="static/red_lipstick/19.png" width="100%"></td>
+</tr>
+<tr>
+<td>Beard</td>
+ <td><img src="static/beard/5.png" width="100%"></td>
+ <td><img src="static/beard/6.png" width="100%"></td>
+ <td><img src="static/beard/7.png" width="100%"></td>
+ <td><img src="static/beard/8.png" width="100%"></td>
+ <td><img src="static/beard/9.png" width="100%"></td>
+</tr>
 </tr>
 </tbody>
 </table>
