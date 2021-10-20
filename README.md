@@ -75,23 +75,23 @@ Example to perform image manipulation:
 
 - Red lipstick
 ```
-python main.py ffhq_256 manipulation --d2c_path checkpoints/ffhq_32/model.ckpt --boundary_path checkpoints/ffhq_32/red_lipstick.ckpt --step 10 --image_dir images/red_lipstick --save_location results/red_lipstick
+python main.py ffhq_256 manipulation --d2c_path checkpoints/ffhq_256/model.ckpt --boundary_path checkpoints/ffhq_256/red_lipstick.ckpt --step 10 --image_dir images/red_lipstick --save_location results/red_lipstick
 ```
 
 - Beard
 ```
-python main.py ffhq_256 manipulation --d2c_path checkpoints/ffhq_32/model.ckpt --boundary_path checkpoints/ffhq_32/beard.ckpt --step 20 --image_dir images/beard --save_location results/beard
+python main.py ffhq_256 manipulation --d2c_path checkpoints/ffhq_256/model.ckpt --boundary_path checkpoints/ffhq_256/beard.ckpt --step 20 --image_dir images/beard --save_location results/beard
 ```
 
 - Blond
 ```
-python main.py ffhq_256 manipulation --d2c_path checkpoints/ffhq_32/model.ckpt --boundary_path checkpoints/ffhq_32/blond.ckpt --step 15 --image_dir images/blond --save_location results/blond
+python main.py ffhq_256 manipulation --d2c_path checkpoints/ffhq_256/model.ckpt --boundary_path checkpoints/ffhq_256/blond.ckpt --step -15 --image_dir images/blond --save_location results/blond
 ```
 
 
 Example to perform unconditional image generation:
 ```
-python main.py ffhq_256 sample_uncond --d2c_path checkpoints/ffhq_32/model.ckpt --skip 100 --save_location results/uncond_samples
+python main.py ffhq_256 sample_uncond --d2c_path checkpoints/ffhq_256/model.ckpt --skip 100 --save_location results/uncond_samples
 ```
 
 ## Extensions
