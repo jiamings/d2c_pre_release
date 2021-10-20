@@ -4,12 +4,14 @@
 
 PyTorch implementation of **D2C: Diffuison-Decoding Models for Few-shot Conditional Generation**.
 
-[Abhishek Sinha*](https://a7b23.github.io/), [Jiaming Song](https://tsong.me/), [Chenlin Meng](https://cs.stanford.edu/~chenlin/), [Stefano Ermon](https://cs.stanford.edu/~ermon/)
+[Abhishek Sinha](https://a7b23.github.io/)*, [Jiaming Song](https://tsong.me/)*, [Chenlin Meng](https://cs.stanford.edu/~chenlin/), [Stefano Ermon](https://cs.stanford.edu/~ermon/)
 
 
 ## Overview
 
+Conditional generative models of high-dimensional images have many applications, but supervision signals from conditions to images can be expensive to acquire. This paper describes Diffusion-Decoding models with Contrastive representations (D2C), a paradigm for training unconditional variational autoencoders (VAEs) for few-shot conditional image generation. By learning from as few as 100 labeled examples, D2C can be used to generate images with a certain label or manipulate an existing image to contain a certain label. Compared with state-of-the-art StyleGAN2 methods, D2C is able to manipulate certain attributes efficiently while keeping the other details intact.
 
+![](static/cond-gen.png)
 
 <table>
 <thead>
@@ -62,14 +64,52 @@ gdown https://drive.google.com/drive/u/1/folders/1DvApt-uO3uMRhFM3eIqPJH-HkiEZC1
 ```
 
 ## Examples 
-The `main.py` file provides some basic scripts to perform inference on the checkpoints. 
+The `main.py` file provides some basic scripts to perform inference on the checkpoints. We will release training code soon.
 
 Example to perform image manipulation:
 ```
-python main.py celeba_256 manipulation --d2c_path checkpoints/ffhq_32/model.ckpt --boundary_path checkpoints/ffhq_32/red_lipstick.ckpt --image_dir images/red_lipstick
+python main.py celeba_256 manipulation --d2c_path checkpoints/ffhq_32/model.ckpt --boundary_path checkpoints/ffhq_32/red_lipstick.ckpt --step -10 --image_dir images/red_lipstick
 ```
 
 Example to perform unconditional image generation:
 ```
 python main.py celeba_256 sample_uncond --d2c_path checkpoints/ffhq_32/model.ckpt --skip 100 --save_location results/uncond_samples
 ```
+
+## Extensions
+
+We implement a `D2C` class [here](https://github.com/jiamings/d2c_pre_release/blob/main/d2c/__init__.py) that contains an autoencoder and a diffusion latent model. 
+
+![](static/code-structure.png)
+
+Useful functions include: `image_to_latent`, `latent_to_image`, `sample_latent`, `manipulate_latent`, `postprocess_latent`, which are also called in `main.py`.
+
+
+## Todo
+
+- [ ] Release checkpoints and models for other datasets.
+- [ ] Release code for conditional generation.
+- [ ] Release training code and procedure to convert into inference model.
+- [ ] Train on higher resolution images.
+
+
+## References and Acknowledgements
+
+If you find this repository useful for your research, please cite our work.
+```
+@inproceedings{sinha2021d2c,
+  title={D2C: Diffusion-Denoising Models for Few-shot Conditional Generation},
+  author={Sinha*, Abhishek and Song*, Jiaming and Meng, Chenlin and Ermon, Stefano},
+  year={2021},
+  month={December},
+  abbr={NeurIPS 2021},
+  url={https://arxiv.org/abs/2106.06819},
+  booktitle={Neural Information Processing Systems},
+  html={https://d2c-model.github.io}
+}
+```
+
+This implementation is based on:
+- [DDIM](https://github.com/ermongroup/ddim).
+- [NVAE](https://github.com/nvlabs/nvae).
+- [IDinvert](https://github.com/genforce/idinvert_pytorch)

@@ -156,7 +156,7 @@ def manipulation(args, config):
     with torch.no_grad():
         for x, _ in tqdm.tqdm(val_loader):
             z = d2c.image_to_latent(x)
-            z_ = d2c.manipulate_latent(z, r_model, -10)
+            z_ = d2c.manipulate_latent(z, r_model, args.step)
             z_ = d2c.postprocess_latent(
                 z_, range(0, args.postprocess_steps, args.postprocess_skip)
             )
@@ -202,11 +202,10 @@ def sample_uncond(args, config):
 
 
 if __name__ == "__main__":
-    dist.init_process_group(
-        "nccl", init_method=, world_size=1, rank=0
-    )
-
     args, config = parse_args_and_config()
+    dist.init_process_group(
+        args.backend, init_method=args.init_method, world_size=1, rank=0
+    )
 
     if args.action == "manipulation":
         manipulation(args, config)
