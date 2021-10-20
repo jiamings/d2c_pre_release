@@ -144,23 +144,23 @@ def manipulation(args, config):
     x, _ = next(iter(val_loader))
     x = x.cuda()
 
-    d2c = D2C(args, config)
+    model = D2C(args, config)
     state_dict = torch.load(args.d2c_path)
-    d2c.load_state_dict(state_dict)
-    d2c.eval()
+    model.load_state_dict(state_dict)
+    model.eval()
 
-    r_model = BoundaryInterpolationLayer(1, *d2c.latent_size).cuda()
+    r_model = BoundaryInterpolationLayer(1, *model.latent_size).cuda()
     r_model.load_state_dict(torch.load(args.boundary_path))
 
     count = 0
     with torch.no_grad():
         for x, _ in tqdm.tqdm(val_loader):
-            z = d2c.image_to_latent(x)
-            z_ = d2c.manipulate_latent(z, r_model, args.step)
-            z_ = d2c.postprocess_latent(
+            z = model.image_to_latent(x)
+            z_ = model.manipulate_latent(z, r_model, args.step)
+            z_ = model.postprocess_latent(
                 z_, range(0, args.postprocess_steps, args.postprocess_skip)
             )
-            x_ = d2c.latent_to_image(z_)
+            x_ = model.latent_to_image(z_)
             for j in range(0, x_.size(0)):
                 torchvision.utils.save_image(
                     x_[j : j + 1],
@@ -182,16 +182,16 @@ def sample_uncond(args, config):
     if not os.path.isdir(args.save_location):
         os.makedirs(args.save_location)
 
-    d2c = D2C(args, config)
+    model = D2C(args, config)
     state_dict = torch.load(args.d2c_path)
-    d2c.load_state_dict(state_dict)
-    d2c.eval()
+    model.load_state_dict(state_dict)
+    model.eval()
 
     count = 0
     with torch.no_grad():
         for i in tqdm.tqdm(range(0, args.num_batches)):
-            z = d2c.sample_latent(args.batch_size, args.skip)
-            x = d2c.latent_to_image(z)
+            z = model.sample_latent(args.batch_size, args.skip)
+            x = model.latent_to_image(z)
             for j in range(0, args.batch_size):
                 torchvision.utils.save_image(
                     x[j : j + 1],
